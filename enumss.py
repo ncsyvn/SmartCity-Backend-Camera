@@ -1,0 +1,15 @@
+HOST = "0.0.0.0"
+PORT = 4321
+BROKER_HOST = "127.0.0.1"
+BROKER_PORT = 1883
+FRAME_WIDTH = 768
+FRAME_HEIGHT = 572
+LEN_LIST_FRAME = 21   # Must be >= (DISTANCE_FRAME * 2 + 1)
+DISTANCE_FRAME = 10   # Distance from first frame to mid frame in stack
+FRAME_SEND_INDEX = 0  # Delay (LEN_LIST_FRAME - DISTANCE_FRAME - FRAME_SEND_INDEX) frame
+RTSP_LINK_KEY_REDIS = "rtsp_link"
+STACK_KEY_REDIS = "stack_name"
+FRAME_KEY_REDIS = "frame_name"
+UPDATE_STACK_TOPIC_BROKER = "update/stack"
+UPDATE_FRAME_TOPIC_BROKER = "update/frame"
+UPDATE_BOXES_TOPIC_BROKER = "update/boxes"

@@ -1,0 +1,47 @@
+I. Config Environment
+	1, Download and Install mosquitto server: https://mosquitto.org/download
+
+	2, Download Redis: https://github.com/microsoftarchive/redis/releases
+
+	3, Download EasyDarwin at: https://www.easydarwin.org
+	   or get it from project (/drdt-backend/GuideToRun/EasyDarwin-windows-8.1.0-1901141151)
+
+	4, Download and install ffmpeg:
+		3.1: Download at: https://www.ffmpeg.org/download.html (ffmpeg-4.2.2.tar.bz2)
+		3.2: unzip file, change folder's name to "ffmpeg"
+		3.3: Copy folder "ffmpeg" co disk C (C:/ffmpeg)
+		3.4: Add ffmpeg to Windows path using Environment variables:
+			+ Goto: Control Panel/System and Security/System/Advanced system settings/Advanced/Environment Variables
+			+ In the Environment Variables window, Select the variable Path and click Edit to change the Path variable.
+			+ Click New and type the path of ffmpeg folder “C:\ffmpeg\bin\” and click OK.
+			(Reference: https://www.thewindowsclub.com/how-to-install-ffmpeg-on-windows-10)
+
+	5, Create rtsp server:
+		+ Run EasyDarwin to support get output of ffmpeg: Open new terminal
+			cd /drdt-backend/GuideToRun/EasyDarwin-windows-8.1.0-1901141151
+			EasyDarwin.exe
+		+ Create rtsp server with ffmpeg: Open new terminal
+			ffmpeg -stream_loop -1 -re -i [path of video] -rtsp_transport tcp -vcodec h264 -f rtsp [rtsp_link]
+			(example: ffmpeg -stream_loop -1 -re -i D:/video.mov -rtsp_transport tcp -vcodec h264 -f rtsp rtsp://admin:1111@localhost/av0_0)
+
+	6, Create environment with conda: Open new terminal
+		conda create --name drdt-backend
+		cd /drdt-backend
+		pip install -r requirements.txt
+
+	7, Run redis-server.exe in folder of Redis, it wil run at port 6379.
+
+	8, Check mosquitto was startup with window by check port 1883 is running?
+		If port 1883 isn't running, start mosquitto at new terminal:
+			cd C:\Program Files\mosquitto
+			mosquitto -v
+		
+II. Run project
+	1, Open new terminal:
+		conda activate drdt-backend
+		cd /drdt-backend
+		python drone_server.py
+	2, Open new terminal:
+		conda activate drdt-backend
+		cd /drdt-backend
+		python socketio_handler.py
